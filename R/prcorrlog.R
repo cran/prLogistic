@@ -16,7 +16,8 @@
 # contact: leiladen@ufba.br
 #
 # originaly created 29  march  2010. 
-# Last modification: 27 may 2011 at 12:55
+# Last modification: 27 may 2011 at 12:55 Version 1.0
+# Last modification: 25 Oct 2011 at 09:10 Version 1.1
 # 
 # We used some functions to lmer package. In this case, copyright (C)
 # Douglas Bates <bates@stat.wisc.edu> and 
@@ -132,7 +133,7 @@ inherits(x, "mer")
 	if(is.glm(object))
 	{
 		fit.coef = object$coefficients 
-		fit.cov = vcov(object)
+		fit.cov = as.matrix(vcov(object))
 		m.aux = cbind(1, diag(rep(1,length(fit.coef)-1)))
 		
 		pr = (1+exp(-fit.coef[1])) /  (1+exp(-(m.aux%*%fit.coef)))
@@ -142,7 +143,9 @@ inherits(x, "mer")
 
 		m0.aux= cbind(1, diag(rep(0,length(fit.coef)-1)))
 
-		xstart = (1-p1.hat)*m0.aux-(diag(as.vector(1-p0.hat)) %*%  m.aux)
+		xstart = as.matrix((1-p1.hat)*m0.aux-(diag(as.vector(1-p0.hat)) %*%  m.aux))
+		
+		
 		lnrp = log(pr)
 		varlogrp = diag((xstart) %*%  fit.cov %*% t(xstart))
 		sdlnrp = sqrt(varlogrp)
@@ -169,7 +172,7 @@ inherits(x, "mer")
 		if(is.lmer(object))
 		{
 		fit.coef= object@fixef
-		fit.cov = vcov(object)
+		fit.cov = as.matrix(vcov(object))
 
 		m.aux = cbind(1, diag(rep(1,length(fit.coef)-1)))
 		pr = (1+exp(-fit.coef[1])) /  (1+exp(-(m.aux%*%fit.coef)))
@@ -179,7 +182,7 @@ inherits(x, "mer")
 
 		m0.aux= cbind(1, diag(rep(0,length(fit.coef)-1)))
 
-		xstart = (1-p1.hat)*m0.aux-(diag(as.vector(1-p0.hat)) %*%  m.aux)
+		xstart = as.matrix((1-p1.hat)*m0.aux-(diag(as.vector(1-p0.hat)) %*%  m.aux))
 		lnrp = log(pr)
 		varlogrp = diag((xstart) %*%  fit.cov %*% t(xstart))
 		sdlnrp = sqrt(varlogrp)
@@ -224,12 +227,14 @@ conditional.rp
 	#glm class model
 	coef.glm =  object$coefficients
 	fit.coef = as.vector(t(coef.glm))
-	fit.cov = vcov(object)
-	m.aux = object$model[-1]
+	fit.cov = as.matrix(vcov(object))
+	m.aux = as.matrix(object$model[-1])
+
+	
 	m.covariate = as.matrix(cbind(1,m.aux))
 	n.coef = dim(m.covariate)[2]
-	p1.marg.aux = mean(m.aux)
-	p0.marg.aux = 1-mean(m.aux)
+	p1.marg.aux = colMeans(m.aux)
+	p0.marg.aux = 1- p1.marg.aux #mean(m.aux)
 
 	marginal.rp = NULL
 
@@ -298,13 +303,13 @@ conditional.rp
 	# lmer class model
 	coef.lmer =  object@fixef
 	fit.coef = as.vector(t(coef.lmer))
-	fit.cov = vcov(object)
+	fit.cov = as.matrix(vcov(object))
 	m.model = object@frame
-	m.aux = m.model[c(-1, -dim(m.model)[2])]
+	m.aux = as.matrix(m.model[c(-1, -dim(m.model)[2])])
 	m.covariate = as.matrix(cbind(1,m.aux))
 	n.coef = dim(m.covariate)[2]
-	p1.marg.aux = mean(m.aux)
-	p0.marg.aux = 1-mean(m.aux)
+	p1.marg.aux = colMeans(m.aux)
+	p0.marg.aux = 1- p1.marg.aux #mean(m.aux)
 
 	marginal.rp = NULL
 
@@ -321,6 +326,7 @@ conditional.rp
 
 
 		p0.aux = (exp(m.aux.p0%*%fit.coef))/(1+exp(m.aux.p0%*%fit.coef))
+		
 		p0.med = mean(p0.aux)
 
 		m.aux.p1 =  m.covariate
@@ -411,7 +417,7 @@ prLogisticBootMarg <- function(
 		... 		# ... Any extra arguments
 		)
 {
-require(boot)
+#require(boot)
 
 	if(is.glm(object))
 	{
@@ -482,7 +488,7 @@ prLogisticBootCond =function(
 		... 		# ... Any extra arguments
 		)
 {
-require(boot)
+#require(boot)
 
 	if(is.glm(object))
 	{
@@ -554,7 +560,7 @@ prLogisticDelta <- function (
 		)
 {
 
-	require(lme4)    
+	#require(lme4)    
         
 	if (!cluster) 
 	{
