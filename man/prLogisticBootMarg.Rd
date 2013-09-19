@@ -38,7 +38,7 @@ extracted. The details of model specification are given below.}
 
 \details{
 The fitted model object can be obtained using \code{glm()} function for binary responses
- when unit samples are independent. The \code{lmer()} function should be used
+ when unit samples are independent. The \code{glmer()} function should be used
  for correlated binary responses. Only binary predictors are allowed. If categorization for predictors 
 is other than (0,1), \code{factor()} should be considered.
 }
@@ -76,36 +76,39 @@ epidemiologic measures. \emph{Journal of Chronic Diseases}, \bold{34}, 849-856.
 %\note{
 %This work is part of .... }
 
-\seealso{ \code{\link{glm}}, \code{\link{lmer}}, 
+\seealso{ \code{\link{glm}}, \code{\link{glmer}}, 
  \code{\link{prLogisticDelta}},\code{\link{prLogisticBootCond}}}
 
 \examples{
 ### For independent observations:
 ## Estimates from logistic regression with bootstrap confidence intervals -
 ## marginal standardization
- data("titanic", package = "prLogistic")
- attach(titanic)
- fit.logistic=glm(survived~ sex + pclass + embarked, family=binomial, 
- data = titanic)
-
-  prLogisticBootMarg(fit.logistic, data = titanic)
+# Not run:
+# data("titanic", package = "prLogistic")
+# attach(titanic)
+# fit.logistic=glm(survived~ sex + pclass + embarked, family=binomial, 
+# data = titanic)
+# prLogisticBootMarg(fit.logistic, data = titanic)
+# End (Not run:)
 
 # Another way for fitting the same model:
- prLogisticBootMarg(glm(survived~ sex + pclass + embarked, 
- family=binomial, data = titanic), data=titanic)
-
+# Not run:
+# prLogisticBootMarg(glm(survived~ sex + pclass + embarked, 
+# family=binomial, data = titanic), data=titanic)
+# End (Not run:)
+ 
 ### For clustered data
 # Estimates from random-effects logistic regression 
 ## with bootstrap confidence intervals - marginal standardization
- # Not run:
- # library(lme4)
- # data("Thailand", package = "prLogistic")
- # attach(Thailand)
- # ML = lmer(rgi ~  sex + pped  + (1|schoolid), 
- # family = binomial, data = Thailand)
+# Not run:
+# library(lme4)
+# data("Thailand", package = "prLogistic")
+# attach(Thailand)
+# ML = glmer(rgi ~  sex + pped  + (1|schoolid), 
+# family = binomial, data = Thailand)
  			
- # prLogisticBootMarg(ML, data = Thailand)
- # End (Not run:)
+# prLogisticBootMarg(ML, data = Thailand)
+# End (Not run:)
 }
 
 \keyword{distribution}

@@ -1,4 +1,4 @@
-import(boot, lme4)
+import(boot, lme4, Hmisc, methods, stats4)
 
 S3method(print,cin)
 

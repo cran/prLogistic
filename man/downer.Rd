@@ -51,10 +51,10 @@ New Zealand Vet. Journal, 32, 126-133
 \examples{
 data("downer", package = "prLogistic")
 attach(downer)
-prop.table(table(Survival))
+# prop.table(table(Survival))
 fit.logist1=glm(Survival ~ Calving + CK + AST + Myopathy, 
 family=binomial, data=downer)
-summary(fit.logist1)
+# summary(fit.logist1)
 exp(fit.logist1$coef)
 }
 

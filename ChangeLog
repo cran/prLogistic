@@ -7,4 +7,13 @@ Date: 2011-10-25
 	* Modified vcov() structure for compatibility with S4 methods
 -------------------
 
+-------------------
+Version: 1.2
+Date: 2013-09-19
+
+	* Replaced lmer class for glmerMod class compatibility with lme4 (>=1.0-4)
+	* Modified is.glmer() structure for compatibility with glmerMod class
+	* Modified pr.conditional() structure for compatibility with glmerMod class
+	* Modified pr.marginal() structure for compatibility with glmerMod class
+-------------------
 

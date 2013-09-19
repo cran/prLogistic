@@ -15,7 +15,7 @@ and for  random-effects logistic models (Santos et al, 2008). The function
 \code{prLogisticDelta} allows estimation of PRs using two
 standardization procedures: conditional or marginal (Wilcosky and Chambless, 1985).
 
-\code{glm}, \code{lmer}, \code{prLogisticBootCond}, \code{prLogisticBootMarg} 
+\code{glm}, \code{glmer}, \code{prLogisticBootCond}, \code{prLogisticBootMarg} 
 }
 
 \usage{
@@ -44,7 +44,7 @@ should be set to cluster=TRUE.}
 A typical form used with \code{glm()} function is included in the formula argument as response 
 ~ terms where response is the (binary) response vector and terms is a series of terms which 
 specifies a linear predictor for response. The \code{prLogisticDelta} assumes a binomial 
-family associated to the model. The \code{lmer()} function is used when a vertical bar character "|" 
+family associated to the model. The \code{glmer()} function is used when a vertical bar character "|" 
 separates an expression for a model matrix and a grouping factor. Currently only binary predictors are allowed. If categorization for predictors 
 is other than (0,1), \code{factor()} should be considered.
 }
@@ -80,16 +80,18 @@ of epidemiologic measures. \emph{Journal of Chronic Diseases}, \bold{34}, 849-85
 %\note{
 %This work is part of .... }
 
-\seealso{ \code{\link{glm}}, \code{\link{lmer}}, 
+\seealso{ \code{\link{glm}}, \code{\link{glmer}}, 
  \code{\link{prLogisticBootCond}},\code{\link{prLogisticBootMarg}}}
 
 \examples{
 ### For independent observations:
 # Estimates from logistic regression with conditional standardization - 
 # delta method
- data("titanic", package = "prLogistic")
- attach(titanic)
- prLogisticDelta(survived~ sex + pclass + embarked, data = titanic)
+# Not run:
+# data("titanic", package = "prLogistic")
+# attach(titanic)
+# prLogisticDelta(survived~ sex + pclass + embarked, data = titanic)
+# End (Not run:)
 
 # Estimates from logistic regression with marginal standardization - 
 # delta method
@@ -100,15 +102,18 @@ of epidemiologic measures. \emph{Journal of Chronic Diseases}, \bold{34}, 849-85
 ### For clustered data
 # Estimates from random-effects logistic regression with conditional 
 # standardization - delta method
- data("Thailand", package = "prLogistic")
- prLogisticDelta(rgi~  sex + pped + (1|schoolid), 
- data = Thailand, cluster=TRUE)
-
+# Not run:
+# data("Thailand", package = "prLogistic")
+# prLogisticDelta(rgi~  sex + pped + (1|schoolid), 
+# data = Thailand, cluster=TRUE)
+# End (Not run:)
 
 # Estimates from random-effects logistic regression with marginal 
+# Not run:
 # standardization -  delta method
-prLogisticDelta(rgi ~  sex + pped + (1|schoolid), data = Thailand,
- pattern="marginal", cluster=TRUE)
+# prLogisticDelta(rgi ~  sex + pped + (1|schoolid), data = Thailand,
+# pattern="marginal", cluster=TRUE)
+# End (Not run:)
 }
 
 \keyword{distribution}

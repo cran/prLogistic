@@ -42,8 +42,7 @@ These data are copyrighted by John Wiley & Sons Inc.
 
 
 \references{
-Hosmer and Lemeshow (2000) Applied Logistic Regression. New York: Wiley Inter-Science. 
-	 Second Edition.  
+Hosmer and Lemeshow (2000) Applied Logistic Regression. New York: Wiley Inter-Science. Second Edition.  
 }
 
 

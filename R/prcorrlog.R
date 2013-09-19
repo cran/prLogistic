@@ -15,10 +15,11 @@
 # Federal University of Bahia, Salvador - Brazil
 # contact: leiladen@ufba.br
 #
-# originaly created 29  march  2010. 
+# Originaly created 29  march  2010. 
 # Last modification: 27 may 2011 at 12:55 Version 1.0
 # Last modification: 25 Oct 2011 at 09:10 Version 1.1
-# 
+# Last modification: 19 Set 2013 at 11:10 Version 1.2
+#
 # We used some functions to lmer package. In this case, copyright (C)
 # Douglas Bates <bates@stat.wisc.edu> and 
 # Martin Maechler <maechler@R-project.org> All rights reserved.
@@ -117,10 +118,10 @@ inherits(x, "glm")
 
 
 #=====================================================================================
-#                 is.lmer ( is a lmer object?)
+#                 is.glmer ( is a glmer object?)
 #=====================================================================================
-"is.lmer" <- function (x) 
-inherits(x, "mer")
+"is.glmer" <- function (x) 
+inherits(x, "glmerMod")
 #=====================================================================================
 
 
@@ -169,9 +170,9 @@ inherits(x, "mer")
 	}
 	else
 	{
-		if(is.lmer(object))
+		if(is.glmer(object))
 		{
-		fit.coef= object@fixef
+		fit.coef= object@beta
 		fit.cov = as.matrix(vcov(object))
 
 		m.aux = cbind(1, diag(rep(1,length(fit.coef)-1)))
@@ -207,7 +208,7 @@ inherits(x, "mer")
 		}
 		else
 		{
-		stop("There are not glm and lmer models. Revise arguments and try again")
+		stop("There are not glm and glmer models. Revise arguments and try again")
 		}
 	}
 conditional.rp	
@@ -300,8 +301,8 @@ conditional.rp
 	}
 	else
 	{
-	# lmer class model
-	coef.lmer =  object@fixef
+	# glmer class model
+	coef.lmer =  object@beta
 	fit.coef = as.vector(t(coef.lmer))
 	fit.cov = as.matrix(vcov(object))
 	m.model = object@frame
@@ -425,12 +426,12 @@ prLogisticBootMarg <- function(
 	}
 	else
 	{
-	if(is.lmer(object))
+	if(is.glmer(object))
 	{
-	nam = names(object@fixef[-1])
+	nam = names(object@beta[-1])
 	}
 	else{
-	stop("There are not glm and lmer models. Review the arguments function and try again")
+	stop("There are not glm and glmer models. Review the arguments function and try again")
 	}
 	}
 
@@ -496,12 +497,12 @@ prLogisticBootCond =function(
 	}
 	else
 	{
-	if(is.lmer(object))
+	if(is.glmer(object))
 	{
-	nam = names(object@fixef[-1])
+	nam = names(object@beta[-1])
 	}
 	else{
-	stop("There are not glm and lmer models. Review the arguments functions and try again")
+	stop("There are not glm and glmer models. Review the arguments functions and try again")
 	}
 	}
 
@@ -584,7 +585,7 @@ prLogisticDelta <- function (
          }
 	 else  
 	 {
-	 fit = lmer(formula, family = binomial, data = dataset)		
+	 fit = glmer(formula, family = binomial, data = dataset)		
          }
 	}
 

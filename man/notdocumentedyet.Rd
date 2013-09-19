@@ -7,7 +7,7 @@
 \alias{expandSlash} 
 \alias{findbars} 
 \alias{is.glm} 
-\alias{is.lmer}
+\alias{is.glmer}
 \alias{makeInteraction} 
 \alias{pr.conditional} 
 \alias{pr.marginal} 

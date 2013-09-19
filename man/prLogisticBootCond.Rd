@@ -13,7 +13,7 @@ and for  random-effects logistic models (Santos et al, 2008). The function
 \code{prLogisticBootCond} allows estimation of PRs using conditional standardization procedure
  (Wilcosky and Chambless, 1985). 
 
-\code{glm}, \code{lmer}, \code{prLogisticDelta}, \code{prLogisticBootMarg} 
+\code{glm}, \code{glmer}, \code{prLogisticDelta}, \code{prLogisticBootMarg} 
 }
 
 \usage{
@@ -32,7 +32,7 @@ extracted. The details of model specification are given below.}
 
 \details{
 The fitted model object can be obtained using \code{glm()} function for binary responses
- when unit samples are independent. The \code{lmer()} function should be used
+ when unit samples are independent. The \code{glmer()} function should be used
  for correlated binary responses. Only binary predictors are allowed. If categorization for predictors 
 is other than (0,1), \code{factor()} should be considered.
 }
@@ -69,21 +69,25 @@ of epidemiologic measures. \emph{Journal of Chronic Diseases}, \bold{34}, 849-85
 %\note{
 %This work is part of .... }
 
-\seealso{ \code{\link{glm}}, \code{\link{lmer}}, 
+\seealso{ \code{\link{glm}}, \code{\link{glmer}}, 
  \code{\link{prLogisticDelta}},\code{\link{prLogisticBootMarg}}}
 
 \examples{
 # Estimates from logistic regression with bootstrap confidence intervals -
 ## conditional standardization
- data("titanic", package = "prLogistic")
- attach(titanic)
- fit.logistic=glm(survived~ sex + pclass + embarked, family=binomial, 
- data = titanic)
- prLogisticBootCond(fit.logistic, data = titanic)
+# Not run:
+# data("titanic", package = "prLogistic")
+# attach(titanic)
+# fit.logistic=glm(survived~ sex + pclass + embarked, family=binomial, 
+# data = titanic)
+# prLogisticBootCond(fit.logistic, data = titanic)
+# End (Not run:)
 
 # Another way for fitting the same model:
-  prLogisticBootCond(glm(survived~ sex + pclass + embarked, family=binomial, 
-  data = titanic), data=titanic)
+# Not run:
+# prLogisticBootCond(glm(survived~ sex + pclass + embarked, family=binomial, 
+# data = titanic), data=titanic)
+# End (Not run:)
 
 ### For clustered data
 # Estimates from random-effects logistic regression 
@@ -92,7 +96,7 @@ of epidemiologic measures. \emph{Journal of Chronic Diseases}, \bold{34}, 849-85
  # library(lme4)
  # data("Thailand", package = "prLogistic")
  # attach(Thailand)
- # ML = lmer(rgi ~  sex + pped  + (1|schoolid), 
+ # ML = glmer(rgi ~  sex + pped  + (1|schoolid), 
  # family = binomial, data = Thailand)
 
  # prLogisticBootCond(ML, data = Thailand)
